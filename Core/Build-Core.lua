@@ -9,15 +9,11 @@ files({
 	"Source/**.hpp",
 	"Source/**.cpp",
 	"../deps/glad/src/**.cpp",
-	"../deps/imgui/**.cpp",
-	"../deps/imgui/backends/**.cpp", -- inclui backends
 })
 
 includedirs({
 	"Source",
 	"../deps/glad/include/",
-	"../deps/imgui",
-	"../deps/imgui/backends",
 	"../deps/GLFW/include",
 })
 
@@ -32,7 +28,7 @@ links({
 })
 
 libdirs({
-	"../deps/GLFW/lib-mingw-w64",
+	"../deps/GLFW/lib-mingw",
 	"../deps/GLFW/lib",
 })
 

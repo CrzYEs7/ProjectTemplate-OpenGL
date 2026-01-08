@@ -12,8 +12,6 @@ includedirs({
 	"../Core/Source",
 	"../deps/glad/include",
 	"../deps/glfw/include",
-	"../deps/imgui",
-	"../deps/imgui/backends",
 })
 
 links({

@@ -1,6 +1,5 @@
 -- premake5.lua
 require("export-compile-commands")
-require("clean")
 workspace("New Project")
 architecture("x64")
 configurations({ "Debug", "Release", "Dist" })
