@@ -8,6 +8,7 @@ files({
 	"Source/**.h",
 	"Source/**.hpp",
 	"Source/**.cpp",
+	"../deps/glm/**.hpp",
 	"../deps/glad/src/**.cpp",
 })
 
@@ -15,6 +16,7 @@ includedirs({
 	"Source",
 	"../deps/glad/include/",
 	"../deps/GLFW/include",
+	"../deps/glm",
 })
 
 links({

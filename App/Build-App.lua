@@ -5,13 +5,14 @@ cppdialect("C++20")
 targetdir("Binaries/%{cfg.buildcfg}")
 staticruntime("off")
 
-files({ "Source/**.hpp", "Source/**.h", "Source/**.cpp" })
+files({ "Source/**.hpp", "Source/**.h", "Source/**.cpp", "../deps/glm/**.hpp" })
 
 includedirs({
 	"Source",
 	"../Core/Source",
 	"../deps/glad/include",
 	"../deps/glfw/include",
+	"../deps/glm",
 })
 
 links({

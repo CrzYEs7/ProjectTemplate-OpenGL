@@ -80,6 +80,11 @@ namespace Core {
         }
     }
 
+    glm::vec2 Application::GetFramebufferSize() const
+    {
+	return m_Window->GetFramebufferSize();
+    }
+
     void Application::Stop()
     {
         m_Running = false;

@@ -51,6 +51,13 @@ namespace Core {
         glfwSwapBuffers(m_Handle);
     }
 
+    glm::vec2 Window::GetFramebufferSize() const
+    {
+        int width, height;
+        glfwGetFramebufferSize(m_Handle, &width, &height);
+        return { width, height };
+    }
+
     bool Window::ShouldClose() const
     {
         return glfwWindowShouldClose(m_Handle) != 0;

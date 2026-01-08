@@ -2,6 +2,7 @@
 
 #include "GLFW/glfw3.h"
 
+#include <glm.hpp>
 #include <stdint.h>
 #include <string>
 #include <functional>
@@ -27,7 +28,9 @@ namespace Core {
 
         void Update();
 
-        bool ShouldClose() const;
+        glm::vec2 GetFramebufferSize() const;
+        
+    bool ShouldClose() const;
 
         GLFWwindow* GetHandle() const { return m_Handle; }
 
