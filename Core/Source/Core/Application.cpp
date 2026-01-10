@@ -64,12 +64,22 @@ namespace Core {
             }
 
             float currentTime = GetTime();
+            float timestep = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
             lastTime = currentTime;
 
             glfwGetFramebufferSize(m_Window->GetHandle(), &Width, &Height);
             glViewport(0, 0, Width, Height);
             glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
+
+            // Main layer update here
+            for (const std::unique_ptr<Layer>& layer : m_LayerStack)
+                layer->OnUpdate(timestep);
+
+            // NOTE: rendering can be done elsewhere (eg. render thread)
+            for (const std::unique_ptr<Layer>& layer : m_LayerStack)
+                layer->OnRender();
+
 
             m_Window->Update();
         }

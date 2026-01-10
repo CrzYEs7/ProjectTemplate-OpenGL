@@ -12,55 +12,57 @@
 
 namespace Core {
 
-struct ApplicationSpecification
-{
-    std::string Name = "Application";
-    WindowSpecification WindowSpec;
-};
-
-class Application
-{
-public:
-    Application(const ApplicationSpecification& specification = ApplicationSpecification());
-    ~Application();
-
-    void Run();
-    void Stop();
-
-    template<typename TLayer>
-    requires(std::is_base_of_v<Layer, TLayer>)
-    void PushLayer()
+    struct ApplicationSpecification
     {
-        m_LayerStack.push_back(std::make_unique<TLayer>());
-    }
+        std::string Name = "Application";
+        WindowSpecification WindowSpec;
+    };
 
-    template<typename TLayer>
-    requires(std::is_base_of_v<Layer, TLayer>)
-    TLayer* GetLayer()
+    class Application
     {
-        for (const auto& layer : m_LayerStack)
-        {
-            if (auto casted = dynamic_cast<TLayer*>(layer.get()))
-                return casted;
-        }
-        return nullptr;
-    }
+        public:
+            Application(const ApplicationSpecification& specification = ApplicationSpecification());
+            ~Application();
 
-    glm::vec2 GetFramebufferSize() const;
+            void Run();
+            void Stop();
 
-    std::shared_ptr<Window> GetWindow() const { return m_Window; }
+            template<typename TLayer, typename... Args>
+                requires std::derived_from<TLayer, Layer>
+                void PushLayer(Args&&... args)
+                {
+                    m_LayerStack.push_back(
+                            std::make_unique<TLayer>(std::forward<Args>(args)...)
+                            );
+                }
 
-    static Application& Get();
-    static float GetTime();
+            template<typename TLayer>
+                requires std::is_base_of_v<Layer, TLayer>
+                TLayer* GetLayer()
+                {
+                    for (const auto& layer : m_LayerStack)
+                    {
+                        if (auto casted = dynamic_cast<TLayer*>(layer.get()))
+                            return casted;
+                    }
+                    return nullptr;
+                }
 
-private:
-    ApplicationSpecification m_Specification;
-    std::shared_ptr<Window> m_Window;
-    bool m_Running = false;
+            glm::vec2 GetFramebufferSize() const;
 
-    std::vector<std::unique_ptr<Layer>> m_LayerStack;
+            std::shared_ptr<Window> GetWindow() const { return m_Window; }
 
-    friend class Layer;
-};
+            static Application& Get();
+            static float GetTime();
+
+        private:
+            ApplicationSpecification m_Specification;
+            std::shared_ptr<Window> m_Window;
+            bool m_Running = false;
+
+            std::vector<std::unique_ptr<Layer>> m_LayerStack;
+
+            friend class Layer;
+    };
 
 }
