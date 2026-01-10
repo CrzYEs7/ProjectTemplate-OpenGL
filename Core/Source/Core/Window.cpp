@@ -35,7 +35,15 @@ namespace Core {
         }
 
         glfwMakeContextCurrent(m_Handle);
-        glfwSwapInterval(m_Specification.VSync ? 1 : 0);
+
+        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+            std::cerr << "Failed to initialize GLAD\n";
+            assert(false);
+        }
+
+		glfwSwapInterval(m_Specification.VSync ? 1 : 0);
+
+		glfwSetWindowUserPointer(m_Handle, this);
     }
 
     void Window::Destroy()

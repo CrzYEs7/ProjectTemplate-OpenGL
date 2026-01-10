@@ -35,6 +35,7 @@ public:
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		Controller* controller = static_cast<Controller*>(glfwGetWindowUserPointer(window));
+		if (!controller) return;
 		if (key == GLFW_KEY_V && action == GLFW_PRESS)
 		{
 			controller->SwapRequested = true;

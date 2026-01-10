@@ -45,11 +45,6 @@ namespace Core {
 
         float lastTime = GetTime();
 
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-            std::cerr << "Failed to initialize GLAD\n";
-            assert(false);
-        }
-
         // --------------------
         // Loop principal
         // --------------------
