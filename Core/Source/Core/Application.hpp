@@ -31,9 +31,7 @@ namespace Core {
                 requires std::derived_from<TLayer, Layer>
                 void PushLayer(Args&&... args)
                 {
-                    m_LayerStack.push_back(
-                            std::make_unique<TLayer>(std::forward<Args>(args)...)
-                            );
+                    m_LayerStack.push_back(std::make_unique<TLayer>(std::forward<Args>(args)...));
                 }
 
             template<typename TLayer>
