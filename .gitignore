@@ -1,0 +1,86 @@
+
+#################################
+# Visual Studio Community
+#################################
+
+# Pasta de caches do Visual Studio
+.vs/
+
+# Ficheiros de utilizador
+*.suo
+*.user
+*.userosscache
+*.rsuser
+*.sln.docstates
+
+# Base de dados da solução
+*.VC.db
+*.VC.VC.opendb
+
+# Build folders criadas pelo Visual Studio
+Debug/
+Release/
+x64/
+x86/
+ARM/
+ARM64/
+
+#################################
+# Premake
+#################################
+
+# Pastas geradas pelo Premake
+*.make
+Makefile
+*_gmake/
+obj/
+*.workspace
+*.project
+
+# VS project files gerados pelo Premake
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+
+# Compile commands
+compile_commands/
+compile_commands.json
+
+#################################
+# gmake build outputs
+#################################
+
+# Object files
+*.o
+
+# Dependency files
+*.d
+
+# Common build dirs
+bin/
+build/
+obj/
+objs/
+out/
+/Binaries/
+Intermediates/
+
+#################################
+# C/C++ gerais
+#################################
+*.gch
+*.pch
+*.pdb
+*.idb
+*.mod
+
+#################################
+# Logs
+#################################
+*.log
+
+#################################
+# Clangd
+#################################
+.cache/
