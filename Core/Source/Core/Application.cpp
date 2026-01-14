@@ -50,13 +50,6 @@ namespace Core {
 
         float lastTime = GetTime();
 
-        // --------------------
-        // Loop principal
-        // --------------------
-
-        int Width = (int)m_Specification.WindowSpec.Width;
-        int Height = (int)m_Specification.WindowSpec.Height;
-
         // Main Application loop
         while (m_Running)
         {
@@ -71,11 +64,6 @@ namespace Core {
             float currentTime = GetTime();
             float timestep = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
             lastTime = currentTime;
-
-            glfwGetFramebufferSize(m_Window->GetHandle(), &Width, &Height);
-            glViewport(0, 0, Width, Height);
-            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
 
             // Main layer update here
             for (const std::unique_ptr<Layer>& layer : m_LayerStack)
