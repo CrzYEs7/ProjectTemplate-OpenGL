@@ -1,3 +1,5 @@
+#include "WindowEvents.h"
+
 #include "glad/glad.h"
 
 #include "Window.hpp"
@@ -41,9 +43,26 @@ namespace Core {
             assert(false);
         }
 
-		glfwSwapInterval(m_Specification.VSync ? 1 : 0);
+        glfwSwapInterval(m_Specification.VSync ? 1 : 0);
 
-		glfwSetWindowUserPointer(m_Handle, this);
+        glfwSetWindowUserPointer(m_Handle, this);
+        
+        glfwSetWindowCloseCallback(m_Handle, [](GLFWwindow* handle)
+                {
+                Window& window = *((Window*)glfwGetWindowUserPointer(handle));
+
+                WindowClosedEvent event;
+                window.RaiseEvent(event);
+                });
+
+        glfwSetWindowSizeCallback(m_Handle, [](GLFWwindow* handle, int width, int height)
+                {
+                Window& window = *((Window*)glfwGetWindowUserPointer(handle));
+
+                WindowResizeEvent event((uint32_t)width, (uint32_t)height);
+                window.RaiseEvent(event);
+                });
+
     }
 
     void Window::Destroy()
@@ -57,6 +76,12 @@ namespace Core {
     void Window::Update()
     {
         glfwSwapBuffers(m_Handle);
+    }
+
+    void Window::RaiseEvent(Event& event)
+    {
+        if (m_Specification.EventCallback)
+            m_Specification.EventCallback(event);
     }
 
     glm::vec2 Window::GetFramebufferSize() const

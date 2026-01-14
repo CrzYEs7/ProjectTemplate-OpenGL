@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Event.h>
+
 #include "GLFW/glfw3.h"
 
 #include <glm.hpp>
@@ -13,8 +15,11 @@ namespace Core {
         std::string Title;
         uint32_t Width = 800;
         uint32_t Height = 600;
-
+        bool IsResizeable = true;
         bool VSync = true;
+
+        using EventCallbackFn = std::function<void(Event&)>;
+        EventCallbackFn EventCallback;
     };
 
     class Window
@@ -28,9 +33,11 @@ namespace Core {
 
         void Update();
 
+        void RaiseEvent(Event& event);
+
         glm::vec2 GetFramebufferSize() const;
         
-    bool ShouldClose() const;
+        bool ShouldClose() const;
 
         GLFWwindow* GetHandle() const { return m_Handle; }
 

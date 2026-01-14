@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Layer.h"
+#include "WindowEvents.h"
 
 #include <GLFW/glfw3.h>
 #include <gtc/matrix_transform.hpp>
@@ -52,6 +53,8 @@ public:
 	GameLayer();
 	virtual ~GameLayer();
 
+	void OnEvent(Core::Event& event) override;
+
 	float worldHeight = 10.0f;
 	float worldWidth = 10.0f;
 	glm::mat4 projection = glm::ortho(
@@ -72,7 +75,7 @@ public:
 	virtual void OnUpdate(float ts) override;
 	virtual void OnRender() override;
 private:
-	/*bool OnWindowClosed(Core::WindowClosedEvent& event);*/
+	bool OnWindowClosed(Core::WindowClosedEvent& event);
 	void UpdateProjection(int width, int height);
 private:
 	uint32_t m_Shader = 0;

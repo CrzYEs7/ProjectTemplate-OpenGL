@@ -3,6 +3,8 @@
 #include "Core/Application.hpp"
 #include <iostream>
 
+#include <iostream>
+
 GameLayer::GameLayer()
 {
     Enemies.reserve(50);
@@ -110,7 +112,15 @@ GameLayer::~GameLayer()
 
     glDeleteProgram(m_Shader);
 }
- 
+
+ void GameLayer::OnEvent(Core::Event& event)
+{
+	std::cout << event.ToString() << std::endl;
+
+	Core::EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<Core::WindowClosedEvent>([this](Core::WindowClosedEvent& e) { return OnWindowClosed(e); });
+}
+
 void GameLayer::ProcessMovementInput(GLFWwindow* window, float& x, float& y, float speed)
 {
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -220,4 +230,11 @@ void GameLayer::OnUpdate(float ts)
         }
     }
     Controller.SwapRequested = false;
+}
+
+bool GameLayer::OnWindowClosed(Core::WindowClosedEvent& event)
+{
+	std::cout << "Window Closed!\n";
+
+	return false;
 }

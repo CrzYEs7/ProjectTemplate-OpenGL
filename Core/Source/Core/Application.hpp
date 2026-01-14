@@ -27,6 +27,8 @@ namespace Core {
             void Run();
             void Stop();
 
+            void RaiseEvent(Event& event);
+
             template<typename TLayer, typename... Args>
                 requires std::derived_from<TLayer, Layer>
                 void PushLayer(Args&&... args)
